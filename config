@@ -1,0 +1,122 @@
+[user]
+	email = pagaltzis@gmx.de
+	name = Aristotle Pagaltzis
+[core]
+	abbrev = 11
+	pager = less -FRQX -+S
+	compression = 9
+[pack]
+	threads = 0
+	compression = 9
+[transfer]
+	fsckObjects = true
+[gc]
+	auto = 1000
+	autopacklimit = 5
+	pruneexpire = never
+	reflogexpire = never
+	reflogexpireunreachable = never
+[receive]
+	autogc = false
+[fetch]
+	prune = true
+[pull]
+	ff = only
+[merge]
+	conflictstyle = diff3
+	defaultToUpstream = true
+[rebase]
+	stat = true
+	autostash = true
+[push]
+	default = tracking
+[url "git@github.com:"]
+	pushInsteadOf = git://github.com/
+[advice]
+	statusHints = false
+	detachedHead = false
+	pushNeedsForce = false
+[color]
+	ui = auto
+[color "grep"]
+	filename = yellow
+	linenumber = cyan
+	separator = blue
+	match = bold green
+[grep]
+	extendedRegexp = true
+[diff]
+	renames = copy
+	ignoreSubmodules = untracked
+	mnemonicprefix = true
+	algorithm = histogram
+	;wordRegex = .
+	indentHeuristic = true # wins out over compactionHeuristic when supported
+	compactionHeuristic = true
+[tag]
+	sort = version:refname
+[log]
+	date = short
+	decorate = auto
+	abbrevCommit = true
+[pretty]
+	onelinelong = tformat:%C(auto,cyan)%ad %C(auto)%h%d%C(auto,reset) %s %C(auto,cyan)<%aN>%C(auto,reset)
+	#onelinelong = tformat:%C(cyan)%ad %C(yellow)%h%Creset%C(auto)%d%Creset %s %C(cyan)<%aN>%Creset
+	#onelinelong = tformat:%C(auto)%ad %h%d%Creset %s <%aN>%Creset
+[format]
+	pretty = onelinelong
+	thread = shallow
+	coverletter = auto
+[sendemail]
+	# but I don't actually use send-email
+	chainreplyto = false
+	thread = true
+	multiedit = true
+	confirm = always
+[http]
+	auth = digest
+[alias]
+	st = status -s -b -u
+	d  = diff
+	dd = diff --cached
+	ax = add      --patch
+	cx = checkout --patch
+	rx = reset    --patch
+	sx = stash    --patch
+	alias = !git config --get-regexp '^alias\\.'\"$1\" && :
+	l  = -c mailmap.file=~/.config/git/mailmap log
+	lg = -c mailmap.file=~/.config/git/mailmap log --graph --exclude=refs/*                 --all
+	lb = -c mailmap.file=~/.config/git/mailmap log --graph --exclude=refs/{stash,remotes/*} --all
+	la = -c mailmap.file=~/.config/git/mailmap log --graph --exclude=refs/stash             --all
+	v  = show --format=fuller --no-abbrev --date=iso         # view
+	vq = show --format=fuller --no-abbrev --date=iso --quiet # ... quiet
+	ls = ls-files
+	co = checkout
+	ci = commit
+	cp = cherry-pick -Xpatience -Xdiff-algorithm=histogram
+	qf = commit --amend --no-edit                # quickfix
+	qr = commit --amend --no-edit --reset-author # quick redo
+	mi = !: merge && git show-ref --quiet \"$1\" && git merge --no-ff \"$1\" && git branch -d \"$1\" && : # merge in
+	ff = merge --ff-only
+	up = fetch --all --verbose
+	fu = !c=`git rev-parse --short \"$1\"` && shift && git commit -m \"fixup! $c\" \"$@\" && :
+	rb = rebase
+	ri = rebase --interactive --autosquash
+	wip = commit -mwip
+	undo = reset HEAD^
+	force = push --force-with-lease
+	dateof = show --quiet --format=%ci
+	publish   = !: branch && HEAD=\"${1:-`git symbolic-ref --short HEAD`}\" && git -c push.default=current push -u origin $HEAD && :
+	unpublish = !: branch && "HEAD=\"${1:-`git symbolic-ref --short HEAD`}\" || exit $? ; REMOTE=`git config \"branch.$HEAD.remote\"` && BRANCH=`git config \"branch.$HEAD.merge\"` || { echo 'fatal: no upstream configured' 1>&2 ; exit 1 ; } ; git push \"$REMOTE\" --delete \"$BRANCH\" ; git branch --unset-upstream \"$HEAD\" && :"
+	dangling  = !git fsck --no-reflog | awk '/dangling commit/ {print $3}' && :
+	ignore    = update-index --assume-unchanged
+	unignore  = update-index --no-assume-unchanged
+	untracked = ls-files -o --exclude-standard
+	unmerged  = !git ls-files -u | cut -d$'\t' -f2- | uniq && :
+	committed = show --name-only --pretty=
+	here = ![ ! -d .git ] && git init && git commit --allow-empty -m 'root commit' && :
+	format-mbox = format-patch --inline --stdout
+	springclean = !git reflog expire --expire=now --all && git repack -ad --window 1000 --window-memory 512m --depth 50 && git prune --expire=now && :
+	pr = !git fetch origin +refs/pull/$1/head:refs/tags/gh-pull/$1 && :
+[include]
+	path = ~/.config/git/local

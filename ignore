@@ -1,0 +1,29 @@
+# editor crud
+*~
+
+# C compiler crud
+*.o
+
+# Python crud
+*.pyc
+
+# must end with two \r
+Icon
+
+# Apple crud
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Apple thumbnails
+._*
+
+# Apple external disk crud
+.Spotlight-V100
+.Trashes
+
+# Apple remote AFP share crud
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
