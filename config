@@ -96,7 +96,7 @@
 	cp = cherry-pick -Xpatience -Xdiff-algorithm=histogram
 	qf = commit --amend --no-edit                # quickfix
 	qr = commit --amend --no-edit --reset-author # quick redo
-	mi = !: merge && git show-ref --quiet \"$1\" && git merge --no-ff \"$1\" && git branch -d \"$1\" && : # merge in
+	mi = merge --no-ff
 	ff = merge --ff-only
 	up = fetch --all --verbose
 	fu = !c=`git rev-parse --short \"$1\"` && shift && git commit -m \"fixup! $c\" \"$@\" && :
