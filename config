@@ -120,3 +120,5 @@
 	pr = !git fetch origin +refs/pull/$1/head:refs/tags/gh-pull/$1 && :
 [include]
 	path = ~/.config/git/local
+[init]
+	defaultBranch = master
