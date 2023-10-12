@@ -85,7 +85,8 @@
 	sx = stash    --patch
 	alias = !git config --get-regexp '^alias\\.'\"$1\" && :
 	l  = -c mailmap.file=~/.config/git/mailmap log
-	lg = -c mailmap.file=~/.config/git/mailmap log --graph --exclude=refs/*                 --all
+	lg = -c mailmap.file=~/.config/git/mailmap log --graph
+	ll = -c mailmap.file=~/.config/git/mailmap log --graph --exclude=refs/*                 --all
 	lb = -c mailmap.file=~/.config/git/mailmap log --graph --exclude=refs/{stash,remotes/*} --all
 	la = -c mailmap.file=~/.config/git/mailmap log --graph --exclude=refs/stash             --all
 	v  = show --format=fuller --no-abbrev --date=iso         # view
