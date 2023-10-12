@@ -93,7 +93,7 @@
 	ls = ls-files
 	co = checkout
 	ci = commit
-	cp = cherry-pick -Xpatience -Xdiff-algorithm=histogram
+	cp = cherry-pick
 	qf = commit --amend --no-edit                # quickfix
 	qr = commit --amend --no-edit --reset-author # quick redo
 	mi = merge --no-ff
