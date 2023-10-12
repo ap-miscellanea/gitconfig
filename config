@@ -108,6 +108,7 @@
 	dateof = show --quiet --format=%ci
 	publish   = !: branch && HEAD=\"${1:-`git symbolic-ref --short HEAD`}\" && git -c push.default=current push -u origin $HEAD && :
 	unpublish = !: branch && "HEAD=\"${1:-`git symbolic-ref --short HEAD`}\" || exit $? ; REMOTE=`git config \"branch.$HEAD.remote\"` && BRANCH=`git config \"branch.$HEAD.merge\"` || { echo 'fatal: no upstream configured' 1>&2 ; exit 1 ; } ; git push \"$REMOTE\" --delete \"$BRANCH\" ; git branch --unset-upstream \"$HEAD\" && :"
+	push--tagged = !git push origin HEAD `git tag --points-at HEAD`
 	dangling  = !git fsck --no-reflog | awk '/dangling commit/ {print $3}' && :
 	ignore    = update-index --assume-unchanged
 	unignore  = update-index --no-assume-unchanged
