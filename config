@@ -112,7 +112,7 @@
 	ignore    = update-index --assume-unchanged
 	unignore  = update-index --no-assume-unchanged
 	untracked = ls-files -o --exclude-standard
-	unmerged  = !git ls-files -u | cut -d$'\t' -f2- | uniq && :
+	unmerged  = !cd "${GIT_PREFIX:-.}" && git ls-files -u | cut -d$'\t' -f2- | uniq && :
 	committed = show --name-only --pretty=
 	here = ![ ! -d .git ] && git init && git commit --allow-empty -m 'root commit' && :
 	format-mbox = format-patch --inline --stdout
